@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="https://schemas.android.com/tools"
+    xmlns:tools2="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools2:ignore="NamespaceTypo"
+    tools:context=".MainActivity">
+
+
+    <ImageButton
+        android:id="@+id/button_on_off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#000"
+        android:src="@drawable/off" />
+
+    <TextView
+        android:id="@+id/LIGHT_available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/button_on_off"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        />
+
+    <TextView
+        android:id="@+id/LIGHT_reading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@+id/button_on_off"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        />
+
+
+</LinearLayout>
