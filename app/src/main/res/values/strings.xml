@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Flashlight</string>
+    <string name="pref_header_sensors">Sensors</string>
+    <string name="pref_title_sensors_light_sensor">Light Sensor</string>
 </resources>

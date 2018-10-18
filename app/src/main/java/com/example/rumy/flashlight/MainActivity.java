@@ -3,6 +3,8 @@ package com.example.rumy.flashlight;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -13,6 +15,8 @@ import android.hardware.camera2.CameraManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -60,6 +64,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             });
             alert.show();
             return;
+        }else{
+            FloatingActionButton fab_pref = findViewById(R.id.fab_pref);
+            fab_pref.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent modifySettings = new Intent(MainActivity.this, SettingsActivity2.class);
+                    startActivity(modifySettings);
+                }
+            });
         }
 
 
@@ -75,10 +88,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             public void onClick(View v) {
                 try {
                     if (isTorchOn) {
-                        turnOffFlashLight();
+                        //turnOffFlashLight();
                         isTorchOn = false;
                     } else {
-                        turnOnFlashLight();
+                        //turnOnFlashLight();
                         isTorchOn = true;
                     }
                 } catch (Exception e) {
@@ -89,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         textLIGHT_available = (TextView) findViewById(R.id.LIGHT_available);
         textLIGHT_reading = (TextView) findViewById(R.id.LIGHT_reading);
+
         sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
 
@@ -110,11 +124,29 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
             textLIGHT_reading.setText("LIGHT: " + event.values[0]);
-            if (event.values[0] > 100) {
-                isDark = false;
-            } else {
-                isDark = true;
+
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+            int valueDark=Integer.parseInt(sharedPrefs.getString("light_sensor", "100"));
+            if (isTorchOn) {
+                if (event.values[0] > valueDark ) {
+                    isDark = false;
+                    turnOffFlashLight();
+                } else {
+                    isDark = true;
+                    turnOnFlashLight();
+                }
+                //turnOffFlashLight();
+                //isTorchOn = false;
+            }else {
+                turnOffFlashLight();
             }
+//                isTorchOn = true;
+//            }
+//            if (event.values[0] > valueDark ) {
+//                isDark = false;
+//            } else {
+//                isDark = true;
+//            }
         }
     }
 
@@ -124,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         try {
             if (isDark && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 mCameraManager.setTorchMode(mCameraId, true);
-                playOnOffSound();
+                //playOnOffSound();
                 mTorchOnOffButton.setImageResource(R.drawable.on);
             }
         } catch (Exception e) {
@@ -138,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 mCameraManager.setTorchMode(mCameraId, false);
-                playOnOffSound();
+                //playOnOffSound();
                 mTorchOnOffButton.setImageResource(R.drawable.off);
 
             }

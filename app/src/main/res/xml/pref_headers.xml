@@ -1,0 +1,10 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+    <header
+        android:fragment="com.example.rumy.flashlight.SettingsActivity2$GeneralPreferenceFragment"
+        android:title="@string/pref_header_sensors" >
+        <extra android:name="settings" android:value="prefs_sensors" ></extra>
+    </header>
+
+</preference-headers>

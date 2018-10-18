@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- A 'parent' preference, which enables/disables child preferences (below)
+             when checked/unchecked. -->
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="sensors_light_sensor"
+        android:title="@string/pref_title_sensors_light_sensor" />
+
+    <EditTextPreference
+        android:key="light_sensor"
+        android:title="Light Sensor"
+        android:summary="Customise darkness value for you"
+        android:dialogTitle="Light Sensor"
+        android:dialogMessage="Customise darkness value for you"
+        android:defaultValue="100"
+        android:inputType="textCapWords"/>
+
+</PreferenceScreen>
